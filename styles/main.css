@@ -1,0 +1,168 @@
+@charset "utf-8";
+
+body{
+	min-width:1024px;
+	background:#ADA;  				/* 005A31*/
+}
+div{
+	
+	min-height:50px;
+	border-style:solid;
+	border:thick;
+	border-color:#903;
+	margin-left:auto;
+	margin-right:auto;
+	width:960px;
+	min-width:840px;
+}
+div.column{
+	margin:0.5%;
+	min-width:10px;
+	width:auto;
+	float:left;		
+	/*
+	border-top-style:solid;
+	border-width:thick;
+	border-left-width:thin;
+	border-left-style:solid;
+	border-color:#005A31;
+	*/
+}
+div#leftCol{
+	width:21%;
+	float:left;
+}
+div#midCol{
+	float:left;
+	width:55%;
+}
+div#rightCol{
+	float:left;
+	width:21%;
+}
+
+div#headerDiv{
+	
+	/*position:fixed;*/
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	box-shadow: -1px 1px 1px 3px #000000;
+	background:#A8CD1B;
+	
+}
+
+div#mainContent{
+	overflow:visible;
+	background:#F3FAB6;
+	min-height:480px;
+	overflow:auto;
+	box-shadow: -1px 1px 1px 3px #000000;
+	
+}
+
+div.myFoot{
+	min-height:25px;
+	background:#A8CD1B;
+	text-align:center;
+	
+	
+	box-shadow: -1px 1px 1px 3px #000000;
+	
+}
+
+
+table.batta{
+	min-width:10px;
+	border-width:thin;
+	border-color:#005A31;
+	border-right-style:solid;
+	border-bottom-width:medium;
+	border-bottom-style:solid;
+	width:100%;
+}
+tr.battaTitle{
+	background:#ABCDEF;
+	border:thin;
+	border-style:solid;
+	text-align:center;
+	font-weight:bold;
+	border:thin;
+	border-style:solid;
+}
+table.contentBatta{
+	min-width:10px;
+	border-width:thin;
+	border-color:#005A31;
+	border-right-style:solid;
+	border-bottom-width:medium;
+	border-bottom-style:solid;
+	width:100%;
+}
+tr.ContentBattaTitle{
+	background:#ABCDEF;
+	border:thin;
+	border-style:solid;
+	text-align:left;
+	font-weight:bold;
+	border:thin;
+	border-style:solid;
+}
+
+td.navigationItem{
+	padding-right:15px;
+	text-align:center;
+	font-size:large;
+	font-weight:bold;
+	width:180px;
+}
+
+td.emptyItem{
+	padding-right:15px;
+	text-align:center;
+	font-size:large;
+	font-weight:bold;
+	min-width:50px;
+	max-width:120px;
+}
+
+td#logo{
+	width:70px;
+}
+
+p{
+	text-align:justify;
+}
+
+a{
+	margin:0px;
+	padding:0px;
+	border-radius:5px;
+	text-decoration:underline;
+}
+
+a:visited{
+	color:#005A31;
+}
+
+a.navLink:hover{
+	text-decoration:none;
+	background-color: #CCDDCC;
+	border-style: groove;
+}
+
+
+a.articleLink:hover{
+	text-decoration:none;
+	border:thin;
+	border-style: solid;
+}
+
+#NepalFlag{
+	position:absolute;
+}
+#BuddhaEye{
+	position:absolute;
+}
+#hobbies{
+	
+}
