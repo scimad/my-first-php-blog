@@ -1,8 +1,8 @@
 <?php
-	$dsn='mysql:host=localhost;dbname=madLife';
-	$dbUser='root';
-	$dbPass='secret';
-	$conn=$e=NULL;
+	//$dsn='mysql:host=localhost;dbname=madLife';
+	//$dbUser='root';
+	//$dbPass='root';
+	//$conn=$e=NULL;
 
 	$query='SELECT * FROM personalinfo';
 

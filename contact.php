@@ -9,7 +9,7 @@
 	
 ?>
 <?php
-	$htmlCode='';
+	$htmlCode=''; $tempcode='';
 	$htmlCode=$htmlCode.beginHtml('Find Me!',$homePath);
 	$htmlCode=$htmlCode.extraDesign('contact',$homePath);
 	$htmlCode=$htmlCode.placeHead($homePath);
@@ -17,35 +17,44 @@
 	
 	
 	$conn=createConnection($dsn,$dbUser,$dbPass);
-	$myquery='SELECT * FROM `article`';
+	$myquery="SELECT *FROM `article` WHERE `article`.`aoContact`=1 AND `article`.`authorSignature`='".$adminSignature."' LIMIT 10";
 	
 	try{
 		$allRows=$conn->query($myquery);
 	}catch(PDOException $e){
-		die('Dying because of error!');
+		die('Dying because of error fetching main contents!'.$e->getMessage());
 	}	
 	
 	foreach($allRows as $row){
-		$tempcode=createContentBatta($row,200);
+		$tempcode=createContentBatta($row,1000);
 		$htmlCode=insertCode($htmlCode,'#%1YearGuaranteeMidCol%#',$tempcode);
 	}
 	
 	
-	$myquery="SELECT * FROM `article` ORDER BY(dateTime) DESC LIMIT 20";
+		
+	/* The following block of code is for creating the list of elements in the left batta */
 	
+	$myquery="SELECT * FROM `article` WHERE `article`.`aoContact`=1 AND `article`.`remarks`='social' ORDER BY(dateTime) DESC LIMIT 10";
 	try{
 		$topRows=$conn->query($myquery);
 	}catch(PDOException $e){
-		die('Dying because of error in fetching recent posts!'.$e->getMessage());
+		die('Dying because of error in fetching Hobbies!'.$e->getMessage());
 	}	
 	
-	$tempcode=createLeftBatta("Recent Posts",$topRows);
+	$tempcode=createLeftBatta("My Accounts",$topRows);
 	$htmlCode=insertCode($htmlCode,'#%1YearGuaranteeLeftCol%#',$tempcode);
 	
 	
-	
-	$tempcode=createRightBatta("Recommended",$topRows);
+	$myquery="SELECT * FROM `article` WHERE `article`.`aoContact`=1 AND `article`.`remarks`='friend' ORDER BY RAND() LIMIT 10";
+	try{
+		$topRows=$conn->query($myquery);
+	}catch(PDOException $e){
+		die('Dying because of error in fetching recent posts on hobbies!'.$e->getMessage());
+	}
+	$tempcode=createRightBatta("My Circle",$topRows);
 	$htmlCode=insertCode($htmlCode,'#%1YearGuaranteeRightCol%#',$tempcode);
+
+
 
 	
 	$htmlCode=$htmlCode.placeFoot($homePath);

@@ -88,7 +88,7 @@ function createLeftBatta($battaTitle,$topRows){
 		$linkText=$row['articleTitle'];
 		if (strlen($linkText)>=17) $linkText=substr($linkText,0,15)."..";
 		$tempCode=$tempCode.'
-			<tr><td>&#9656<a class="navLink" href="article.php?articleID='.$row['articleID'].'">'.$linkText.'</a></td></tr>';
+			<tr><td>&#9656<a class="navLink" href="article.php?articleId='.$row['articleId'].'">'.$linkText.'</a></td></tr>';
 	}
 	
 	$tempCode=$tempCode.'
@@ -100,12 +100,16 @@ function createLeftBatta($battaTitle,$topRows){
 function createRightBatta($battaTitle,$topRows){
 
 	$tempCode='<table class="batta">
-        	<tr class="battaTitle"><td>'.$battaTitle.'</td></tr>'.'
-            <tr><td>&#9656<a class="navLink" href="index.php">Madhav</a></td></tr>
-            <tr><td>&#9656<a class="navLink" href="index.php">Current Doc</a></td></tr>
-            <tr><td>&#9656<a class="navLink" href="index.php">Madhav</a></td></tr>
-            <tr><td>&#9656<a class="navLink" href="index.php">Current Doc</a></td></tr>
-    	</table>';
+        	<tr class="battaTitle"><td>'.$battaTitle.'</td></tr>';
+	foreach($topRows as $row){
+		$linkText=$row['articleTitle'];
+		if (strlen($linkText)>=17) $linkText=substr($linkText,0,15)."..";
+		$tempCode=$tempCode.'
+			<tr><td>&#9656<a class="navLink" href="article.php?articleId='.$row['articleId'].'">'.$linkText.'</a></td></tr>';
+	}
+	
+	$tempCode=$tempCode.'
+    	</table>';	
 	return $tempCode;
 }
 
@@ -116,7 +120,7 @@ function createContentBatta($articleRow, $length){
 	$linkToFullArticle='';
 	if ($length!=0) {
 		$articleText=substr($articleText,0,$length);
-		$linkToFullArticle='..<a class="articleLink" href="article.php?articleID='.$articleRow['articleID'].'">(Read Whole Article)</a>';
+		$linkToFullArticle='..<a class="articleLink" href="article.php?articleId='.$articleRow['articleId'].'">(Read Whole Article)</a>';
 	}
 	
 	$tempCode='<table class="contentBatta">

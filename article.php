@@ -8,23 +8,27 @@
 	
 ?>
 <?php
-	$htmlCode='';
-	
+	$htmlCode=''; $tempcode='';	
 	$htmlCode=$htmlCode.beginHtml('Article',$homePath);
 	$htmlCode=$htmlCode.extraDesign('article',$homePath);
 	$htmlCode=$htmlCode.placeHead($homePath);
 	$htmlCode=$htmlCode.placeMainContent($homePath);
 	
-	$articleID=0;
-	if (isset($_GET['articleID']))
-		$articleID=$_GET['articleID'];
+	$articleId=0;
+	if (isset($_GET['articleId']))
+		$articleId=$_GET['articleId'];
 	
 	
 	
 	$conn=createConnection($dsn,$dbUser,$dbPass);
 	
-	if ($articleID==0){
-		$myquery='SELECT * FROM `article`';
+	/* echo $conn->getAttribute(PDO::ATTR_DRIVER_NAME); //This returns mysql because it'd my current db driver */
+	
+	
+	if ($articleId==0){
+		
+		/*This is executed when any specific article is not specified at the end of the link by 'get' method */
+		$myquery='SELECT * FROM `article` ORDER BY RAND()';
 		try{
 			$allRows=$conn->query($myquery);
 		}catch(PDOException $e){
@@ -36,7 +40,8 @@
 			$htmlCode=insertCode($htmlCode,'#%1YearGuaranteeMidCol%#',$tempcode);
 		}
 	}else{
-		$myquery='SELECT * FROM `article` where articleID='.$articleID;
+		/*When an article is specified in the link of the article page, this block of code is executed */
+		$myquery='SELECT * FROM `article` where articleId='.$articleId;
 	
 	try{
 		$requiredRow=$conn->query($myquery);
@@ -51,9 +56,9 @@
 	}
 	
 	
-/* The following paragraph of code is for creating the list of elements in the batta */
+	/* The following paragraph of code is for creating the list of elements in the batta */
 	
-	$myquery="SELECT * FROM `article` ORDER BY(dateTime) DESC LIMIT 20";
+	$myquery="SELECT * FROM `article` ORDER BY(views) DESC LIMIT 10";
 	
 	try{
 		$topRows=$conn->query($myquery);
@@ -61,8 +66,17 @@
 		die('Dying because of error in fetching recent posts!'.$e->getMessage());
 	}	
 	
-	$tempcode=createLeftBatta("Recent Posts",$topRows);
+	$tempcode=createLeftBatta("Most Viewed",$topRows);
 	$htmlCode=insertCode($htmlCode,'#%1YearGuaranteeLeftCol%#',$tempcode);
+	
+	
+	$myquery="SELECT * FROM `article` ORDER BY(recommended) DESC LIMIT 10";
+	
+	try{
+		$topRows=$conn->query($myquery);
+	}catch(PDOException $e){
+		die('Dying because of error in fetching recent posts!'.$e->getMessage());
+	}	
 	
 	$tempcode=createRightBatta("Recommended",$topRows);
 	$htmlCode=insertCode($htmlCode,'#%1YearGuaranteeRightCol%#',$tempcode);
@@ -71,6 +85,5 @@
 	$htmlCode=$htmlCode.placeFoot($homePath);
 	$htmlCode=$htmlCode.endHtml($homePath);
 
-	
 	htmlShow($htmlCode);
 ?>

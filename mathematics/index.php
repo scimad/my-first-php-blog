@@ -20,6 +20,7 @@
 	$myquery="SELECT * FROM `article` ORDER BY(dateTime) DESC LIMIT 10";
 	
 	try{
+		var_dump ($myquery);
 		$topRows=$conn->query($myquery);
 	}catch(PDOException $e){
 		die('Dying because of error in fetching recent posts!'.$e->getMessage());
